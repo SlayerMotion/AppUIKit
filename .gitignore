@@ -5,3 +5,8 @@
 xcuserdata/
 DerivedData/
 .swiftpm/
+
+# Editor / tooling
+.claude/
+*.xcuserstate
+*.hmap
