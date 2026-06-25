@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-06-25
+
+### Added
+
+- The full NativeKit helper surface, ported and renamed to the `AppUIKit`/`NSUI*`
+  scheme: `AppUIKit.ViewFactory` (label/button/icon/pill/separator/card/scroll/stack/
+  image-view constructors, plus `StackAxis`/`StackAlignment`), `AppUIKit.Pasteboard`,
+  `AppUIKit.VisualEffects`, `AppUIKit.LayoutDirection`, `AppUIKit.TooltipHelper`,
+  `AppUIKit.KeyboardShortcuts`, and the `nsui*` view/color convenience extensions.
+- `AppUIKit.Colors` expanded to the full set (backgrounds, separators, labels, fills),
+  keeping `accent` and `contentBackground`. `AppUIKit.Fonts` gains `monospaced` and
+  `monospacedPreferred` alongside `monospacedDigit`.
+
 ## [0.1.1] - 2026-06-25
 
 ### Added

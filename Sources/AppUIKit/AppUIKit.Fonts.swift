@@ -1,15 +1,35 @@
-//  AppUIKit.Fonts.swift
-//  AppUIKit
+// AppUIKit.Fonts.swift
+// AppUIKit
 //
-//  Font helpers that read the same on both platforms. `NSFont` and `UIFont` already share most of their
-//  factory API, so this is thin: the one helper imperative UI code reaches for repeatedly is a
-//  monospaced-digit font for numeric readouts (a dial's degrees, a coordinate field) that must not jitter
-//  as digits change width.
+// Native platform font helpers for AppKit/UIKit.
+
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
+    import AppKit
+#elseif canImport(UIKit)
+    import UIKit
+#endif
 
 public extension AppUIKit {
-    /// Font accessors shared across AppKit and UIKit.
+    /// Native platform font utilities.
+    ///
+    /// Access via `AppUIKit.Fonts.monospaced(...)`, `AppUIKit.Fonts.monospacedPreferred(...)`.
     enum Fonts {
-        /// A monospaced-digit system font, so a changing number does not shift the readout's width.
+        /// Monospaced system font with explicit size.
+        public static func monospaced(ofSize size: CGFloat, weight: NSUIFont.Weight = .regular) -> NSUIFont {
+            .monospacedSystemFont(ofSize: size, weight: weight)
+        }
+
+        /// Preferred monospaced font for the given text style, respecting Dynamic Type.
+        public static func monospacedPreferred(forTextStyle style: NSUIFont.TextStyle, weight: NSUIFont.Weight = .regular) -> NSUIFont {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                let preferred = NSFont.preferredFont(forTextStyle: style)
+            #else
+                let preferred = UIFont.preferredFont(forTextStyle: style)
+            #endif
+            return monospaced(ofSize: preferred.pointSize, weight: weight)
+        }
+
+        /// A monospaced-digit system font, so a changing number does not shift a readout's width.
         public static func monospacedDigit(size: CGFloat, weight: NSUIFont.Weight = .semibold) -> NSUIFont {
             NSUIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
         }

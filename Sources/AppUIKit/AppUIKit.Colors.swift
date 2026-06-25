@@ -1,41 +1,70 @@
-//  AppUIKit.Colors.swift
-//  AppUIKit
+// AppUIKit.Colors.swift
+// AppUIKit
 //
-//  Semantic colors that name the same intent on both platforms, so imperative UI code reaches one accessor
-//  instead of branching on NSColor vs UIColor at every call site. A focused subset, grown as the controls
-//  and editors need more.
+// Native platform color constants using AppKit/UIKit.
+
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
+    import AppKit
+#elseif canImport(UIKit)
+    import UIKit
+#endif
 
 public extension AppUIKit {
-    /// Semantic color accessors that resolve to the right `NSColor`/`UIColor` per platform.
+    /// Native platform color accessors.
+    ///
+    /// Use these when you need the actual NSColor/UIColor rather than SwiftUI Color.
+    /// Access via `AppUIKit.Colors.label`, `AppUIKit.Colors.background`, etc.
     enum Colors {
-        /// The primary label color (high-contrast text).
-        public static var label: NSUIColor {
+        // MARK: - Backgrounds
+
+        /// Background color for control elements.
+        public static var controlBackground: NSUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-                .labelColor
+                .controlBackgroundColor
             #else
-                .label
+                .systemBackground
             #endif
         }
 
-        /// The secondary label color (muted text, ticks).
-        public static var secondaryLabel: NSUIColor {
+        /// Background color for text areas.
+        public static var textBackground: NSUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-                .secondaryLabelColor
+                .textBackgroundColor
             #else
-                .secondaryLabel
+                .secondarySystemBackground
             #endif
         }
 
-        /// The tertiary label color (faint marks, the dial track).
-        public static var tertiaryLabel: NSUIColor {
+        /// Primary window/view background.
+        public static var background: NSUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-                .tertiaryLabelColor
+                .windowBackgroundColor
             #else
-                .tertiaryLabel
+                .systemBackground
             #endif
         }
 
-        /// A hairline separator color.
+        /// Secondary background.
+        public static var secondaryBackground: NSUIColor {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                .underPageBackgroundColor
+            #else
+                .secondarySystemBackground
+            #endif
+        }
+
+        /// Tertiary background.
+        public static var tertiaryBackground: NSUIColor {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                .controlBackgroundColor
+            #else
+                .tertiarySystemBackground
+            #endif
+        }
+
+        // MARK: - Separators
+
+        /// Separator line color.
         public static var separator: NSUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .separatorColor
@@ -44,12 +73,70 @@ public extension AppUIKit {
             #endif
         }
 
-        /// The window/view background.
-        public static var background: NSUIColor {
+        // MARK: - Labels
+
+        /// Primary label color.
+        public static var label: NSUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-                .windowBackgroundColor
+                .labelColor
             #else
-                .systemBackground
+                .label
+            #endif
+        }
+
+        /// Secondary label color.
+        public static var secondaryLabel: NSUIColor {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                .secondaryLabelColor
+            #else
+                .secondaryLabel
+            #endif
+        }
+
+        /// Tertiary label color.
+        public static var tertiaryLabel: NSUIColor {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                .tertiaryLabelColor
+            #else
+                .tertiaryLabel
+            #endif
+        }
+
+        // MARK: - Fill
+
+        /// Primary fill color.
+        public static var fill: NSUIColor {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                .systemFill
+            #else
+                .systemFill
+            #endif
+        }
+
+        /// Secondary fill color.
+        public static var secondaryFill: NSUIColor {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                .secondarySystemFill
+            #else
+                .secondarySystemFill
+            #endif
+        }
+
+        /// Tertiary fill color.
+        public static var tertiaryFill: NSUIColor {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                .tertiarySystemFill
+            #else
+                .tertiarySystemFill
+            #endif
+        }
+
+        /// Quaternary fill color.
+        public static var quaternaryFill: NSUIColor {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                .quaternarySystemFill
+            #else
+                .quaternarySystemFill
             #endif
         }
 
@@ -62,8 +149,8 @@ public extension AppUIKit {
             #endif
         }
 
-        /// The system accent (the default tint for the rotate dial). UIKit has no first-class accent color, so
-        /// it resolves to system blue there, matching AppKit's default control accent on a fresh install.
+        /// The system accent (the default tint for a control). UIKit has no first-class accent color, so it
+        /// resolves to system blue there, matching AppKit's default control accent on a fresh install.
         public static var accent: NSUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .controlAccentColor

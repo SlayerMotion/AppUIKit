@@ -13,11 +13,15 @@ The actual reusable controls live in **AppUIControls**, which depends on this pa
   alerts, menus, toolbars, drag and drop, navigation, pasteboard, appearance/trait, attributed strings, and
   the delegate/data-source protocols (`NSUIView`, `NSUIViewController`, `NSUIColor`, `NSUIFont`,
   `NSUIPanGestureRecognizer`, …). Each resolves to the AppKit type on macOS and the UIKit type on iOS.
-- `AppUIKit.currentCGContext()` — the current Core Graphics context inside a view's `draw(_:)`, the one place
-  the two frameworks differ.
-- `AppUIKit.Colors` — semantic colors (`label`, `secondaryLabel`, `tertiaryLabel`, `separator`, `background`,
-  `contentBackground`, `accent`).
-- `AppUIKit.Fonts` — a monospaced-digit font helper for numeric readouts.
+- `AppUIKit.currentCGContext()` (and the free `NSUIGraphicsGetCurrentContext()`): the current Core Graphics
+  context inside a view's `draw(_:)`, the one place the two frameworks differ.
+- `AppUIKit.Colors`: semantic colors (backgrounds, separators, labels, fills, plus `contentBackground` and
+  `accent`).
+- `AppUIKit.Fonts`: `monospaced`, `monospacedPreferred`, and `monospacedDigit`.
+- `AppUIKit.ViewFactory`: constructors for labels, buttons, icon/pill buttons, separators, cards, scroll
+  views, stacks, and image views (with `StackAxis` / `StackAlignment`).
+- `AppUIKit.Pasteboard`, `AppUIKit.VisualEffects`, `AppUIKit.LayoutDirection`, `AppUIKit.TooltipHelper`,
+  `AppUIKit.KeyboardShortcuts`, and `nsui*` view/color convenience extensions.
 - `isAppKit` / `isUIKit` platform flags.
 
 `import AppUIKit` also re-exports the platform UI framework, so consumers usually do not need to import AppKit
