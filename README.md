@@ -8,9 +8,11 @@ The actual reusable controls live in **AppUIControls**, which depends on this pa
 
 ## What it provides
 
-- `NSUI*` type aliases for the common view, control, container, image, color, font, event, and gesture types
-  (`NSUIView`, `NSUIColor`, `NSUIFont`, `NSUIPanGestureRecognizer`, …). Resolves to the AppKit type on macOS
-  and the UIKit type on iOS.
+- The **full** `NSUI*` type-alias set, at parity with NativeKit: views, windows, view controllers, the
+  control and gesture families, containers, tables/outlines/collections, images, color, font, bezier path,
+  alerts, menus, toolbars, drag and drop, navigation, pasteboard, appearance/trait, attributed strings, and
+  the delegate/data-source protocols (`NSUIView`, `NSUIViewController`, `NSUIColor`, `NSUIFont`,
+  `NSUIPanGestureRecognizer`, …). Each resolves to the AppKit type on macOS and the UIKit type on iOS.
 - `AppUIKit.currentCGContext()` — the current Core Graphics context inside a view's `draw(_:)`, the one place
   the two frameworks differ.
 - `AppUIKit.Colors` — semantic colors (`label`, `secondaryLabel`, `tertiaryLabel`, `separator`, `background`,

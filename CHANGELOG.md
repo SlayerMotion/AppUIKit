@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-25
+
+### Added
+
+- The **complete** `NSUI*` type-alias set, at parity with NativeKit (renamed to the
+  `NSUI*` prefix): windows, panels, tables/outlines/collections, toolbars, menus,
+  drag and drop, alerts, navigation, document picker, appearance/trait, tracking,
+  clip view, attributed strings, the full control and gesture families, and the
+  delegate/data-source protocol aliases, for both the AppKit and UIKit branches.
+- `NSUIApp` (the shared application instance) and the free function
+  `NSUIGraphicsGetCurrentContext()`.
+
 ## [0.1.0] - 2026-06-25
 
 Initial release: the cross-framework namespace layer for SlayerMotion's imperative
