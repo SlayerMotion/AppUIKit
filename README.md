@@ -13,8 +13,8 @@ The actual reusable controls live in **AppUIControls**, which depends on this pa
   alerts, menus, toolbars, drag and drop, navigation, pasteboard, appearance/trait, attributed strings, and
   the delegate/data-source protocols (`AppUIView`, `AppUIViewController`, `AppUIColor`, `AppUIFont`,
   `AppUIPanGestureRecognizer`, …). Each resolves to the AppKit type on macOS and the UIKit type on iOS.
-- `AppUIKit.currentCGContext()` (and the free `AppUIGraphicsGetCurrentContext()`): the current Core Graphics
-  context inside a view's `draw(_:)`, the one place the two frameworks differ.
+- `AppUIKit.currentCGContext()`: the current Core Graphics context inside a view's `draw(_:)`, the one place
+  the two frameworks differ.
 - `AppUIKit.Colors`: semantic colors (backgrounds, separators, labels, fills, plus `contentBackground` and
   `accent`).
 - `AppUIKit.Fonts`: `monospaced`, `monospacedPreferred`, and `monospacedDigit`.
@@ -24,8 +24,8 @@ The actual reusable controls live in **AppUIControls**, which depends on this pa
   `AppUIKit.KeyboardShortcuts`, and `appui*` view/color convenience extensions.
 - `isAppKit` / `isUIKit` platform flags.
 
-`import AppUIKit` also re-exports the platform UI framework, so consumers usually do not need to import AppKit
-or UIKit directly.
+`import AppUIKit` also re-exports the platform UI framework and Core Graphics, so a consumer drawing in a
+control reaches `CGContext` and the rest through `import AppUIKit` alone, with no second import.
 
 ## Installation
 
