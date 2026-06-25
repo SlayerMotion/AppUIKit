@@ -21,9 +21,29 @@ The actual reusable controls live in **AppUIControls**, which depends on this pa
 `import AppUIKit` also re-exports the platform UI framework, so consumers usually do not need to import AppKit
 or UIKit directly.
 
+## Installation
+
+```swift
+.package(url: "https://github.com/SlayerMotion/AppUIKit.git", branch: "main"),
+```
+
+```swift
+.target(name: "YourTarget", dependencies: ["AppUIKit"])
+```
+
 ## Platforms
 
 | Platform | Minimum |
 |---|---|
 | macOS | 14 |
 | iOS | 17 |
+
+## Rules
+
+This package follows the canonical Swift rules in
+[`rules-swift`](https://github.com/mihaelamj/rules-swift); see `CLAUDE.md`. Formatting, linting, and
+commit hygiene are enforced by `.githooks/` (install per clone with `git config core.hooksPath .githooks`).
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
