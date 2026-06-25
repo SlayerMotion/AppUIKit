@@ -1,0 +1,26 @@
+import Testing
+@testable import AppUIKit
+
+/// AppUIKit is mostly type aliases (checked by the fact that the controls and editors compile against it),
+/// so these tests pin the few things that carry real logic: the platform flags, the version, and that the
+/// semantic accessors resolve to real platform values rather than trapping.
+@Suite("AppUIKit namespace")
+struct AppUIKitTests {
+    @Test func `exactly one imperative UI framework is active`() {
+        // The platform branches are mutually exclusive by construction; this proves the build picked one.
+        #expect(isAppKit != isUIKit)
+    }
+
+    @Test func `the version is set`() {
+        #expect(!AppUIKit.version.isEmpty)
+    }
+
+    @Test func `semantic colors resolve to distinct platform colors`() {
+        #expect(AppUIKit.Colors.label != AppUIKit.Colors.background)
+        #expect(AppUIKit.Colors.accent != AppUIKit.Colors.separator)
+    }
+
+    @Test func `a monospaced-digit font honours the requested size`() {
+        #expect(AppUIKit.Fonts.monospacedDigit(size: 17).pointSize == 17)
+    }
+}
