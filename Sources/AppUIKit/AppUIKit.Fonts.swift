@@ -15,12 +15,12 @@ public extension AppUIKit {
     /// Access via `AppUIKit.Fonts.monospaced(...)`, `AppUIKit.Fonts.monospacedPreferred(...)`.
     enum Fonts {
         /// Monospaced system font with explicit size.
-        public static func monospaced(ofSize size: CGFloat, weight: NSUIFont.Weight = .regular) -> NSUIFont {
+        public static func monospaced(ofSize size: CGFloat, weight: AppUIFont.Weight = .regular) -> AppUIFont {
             .monospacedSystemFont(ofSize: size, weight: weight)
         }
 
         /// Preferred monospaced font for the given text style, respecting Dynamic Type.
-        public static func monospacedPreferred(forTextStyle style: NSUIFont.TextStyle, weight: NSUIFont.Weight = .regular) -> NSUIFont {
+        public static func monospacedPreferred(forTextStyle style: AppUIFont.TextStyle, weight: AppUIFont.Weight = .regular) -> AppUIFont {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 let preferred = NSFont.preferredFont(forTextStyle: style)
             #else
@@ -30,8 +30,8 @@ public extension AppUIKit {
         }
 
         /// A monospaced-digit system font, so a changing number does not shift a readout's width.
-        public static func monospacedDigit(size: CGFloat, weight: NSUIFont.Weight = .semibold) -> NSUIFont {
-            NSUIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
+        public static func monospacedDigit(size: CGFloat, weight: AppUIFont.Weight = .semibold) -> AppUIFont {
+            AppUIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
         }
     }
 }

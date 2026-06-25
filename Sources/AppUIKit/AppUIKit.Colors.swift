@@ -18,7 +18,7 @@ public extension AppUIKit {
         // MARK: - Backgrounds
 
         /// Background color for control elements.
-        public static var controlBackground: NSUIColor {
+        public static var controlBackground: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .controlBackgroundColor
             #else
@@ -27,7 +27,7 @@ public extension AppUIKit {
         }
 
         /// Background color for text areas.
-        public static var textBackground: NSUIColor {
+        public static var textBackground: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .textBackgroundColor
             #else
@@ -36,7 +36,7 @@ public extension AppUIKit {
         }
 
         /// Primary window/view background.
-        public static var background: NSUIColor {
+        public static var background: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .windowBackgroundColor
             #else
@@ -45,7 +45,7 @@ public extension AppUIKit {
         }
 
         /// Secondary background.
-        public static var secondaryBackground: NSUIColor {
+        public static var secondaryBackground: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .underPageBackgroundColor
             #else
@@ -54,7 +54,7 @@ public extension AppUIKit {
         }
 
         /// Tertiary background.
-        public static var tertiaryBackground: NSUIColor {
+        public static var tertiaryBackground: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .controlBackgroundColor
             #else
@@ -65,7 +65,7 @@ public extension AppUIKit {
         // MARK: - Separators
 
         /// Separator line color.
-        public static var separator: NSUIColor {
+        public static var separator: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .separatorColor
             #else
@@ -76,7 +76,7 @@ public extension AppUIKit {
         // MARK: - Labels
 
         /// Primary label color.
-        public static var label: NSUIColor {
+        public static var label: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .labelColor
             #else
@@ -85,7 +85,7 @@ public extension AppUIKit {
         }
 
         /// Secondary label color.
-        public static var secondaryLabel: NSUIColor {
+        public static var secondaryLabel: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .secondaryLabelColor
             #else
@@ -94,7 +94,7 @@ public extension AppUIKit {
         }
 
         /// Tertiary label color.
-        public static var tertiaryLabel: NSUIColor {
+        public static var tertiaryLabel: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .tertiaryLabelColor
             #else
@@ -105,7 +105,7 @@ public extension AppUIKit {
         // MARK: - Fill
 
         /// Primary fill color.
-        public static var fill: NSUIColor {
+        public static var fill: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .systemFill
             #else
@@ -114,7 +114,7 @@ public extension AppUIKit {
         }
 
         /// Secondary fill color.
-        public static var secondaryFill: NSUIColor {
+        public static var secondaryFill: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .secondarySystemFill
             #else
@@ -123,7 +123,7 @@ public extension AppUIKit {
         }
 
         /// Tertiary fill color.
-        public static var tertiaryFill: NSUIColor {
+        public static var tertiaryFill: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .tertiarySystemFill
             #else
@@ -132,7 +132,7 @@ public extension AppUIKit {
         }
 
         /// Quaternary fill color.
-        public static var quaternaryFill: NSUIColor {
+        public static var quaternaryFill: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .quaternarySystemFill
             #else
@@ -141,7 +141,7 @@ public extension AppUIKit {
         }
 
         /// The background for text/content areas (the editor stage, code panels).
-        public static var contentBackground: NSUIColor {
+        public static var contentBackground: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .textBackgroundColor
             #else
@@ -151,7 +151,7 @@ public extension AppUIKit {
 
         /// The system accent (the default tint for a control). UIKit has no first-class accent color, so it
         /// resolves to system blue there, matching AppKit's default control accent on a fresh install.
-        public static var accent: NSUIColor {
+        public static var accent: AppUIColor {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 .controlAccentColor
             #else

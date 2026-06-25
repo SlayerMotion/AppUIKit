@@ -7,10 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-06-25
+
+### Changed
+
+- **Breaking:** the cross-platform alias prefix is now `AppUI*` (was `NSUI*`), so the
+  names match the package: `AppUIView`, `AppUIColor`, `AppUIStepper`, and so on. The
+  convenience extension members are likewise `appui*` (was `nsui*`). Pre-1.0, so no
+  deprecation shims.
+
 ### Added
 
+- AppUIKit re-exports Core Graphics, so a consumer reaches `CGContext`, `CGRect`, and
+  the rest through `import AppUIKit` alone, with no second import and no platform `#if`.
+- More shared-type aliases (each has a real counterpart on both frameworks):
+  `AppUIStepper`, `AppUIDatePicker`, `AppUIProgressIndicator`, `AppUICollectionView`
+  (and its delegate/data-source), `AppUIFontDescriptor`,
+  `AppUIGestureRecognizerDelegate`, `AppUIRotationGestureRecognizer`, `AppUIStoryboard`,
+  `AppUINib`, `AppUILayoutGuide`, `AppUIAccessibilityElement`.
 - Community-health docs: `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` (Contributor
   Covenant 2.1), and `SECURITY.md`.
+
+### Removed
+
+- The redundant `AppUIApp` accessor and `AppUIGraphicsGetCurrentContext()` free
+  function (use `NSApp` directly, and `AppUIKit.currentCGContext()`).
 
 ## [0.1.2] - 2026-06-25
 

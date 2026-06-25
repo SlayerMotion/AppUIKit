@@ -2,7 +2,7 @@
 //  AppUIKit
 //
 //  The cross-framework namespace layer for SlayerMotion's imperative (AppKit + UIKit) UI code. It vends one
-//  full set of `NSUI*` type aliases plus platform-detection and graphics-context helpers, so a single source
+//  full set of `AppUI*` type aliases plus platform-detection and graphics-context helpers, so a single source
 //  file can target macOS and iOS without `#if` noise at every type reference. It is deliberately a thin
 //  abstraction, names and a few helpers, not a UI framework; the reusable controls live in the AppUIControls
 //  package, which depends on this one.
@@ -17,11 +17,15 @@ import Foundation
     @_exported import UIKit
 #endif
 
+// Re-export Core Graphics too, so a consumer drawing in a control reaches `CGContext`, `CGRect`, and the
+// rest through `import AppUIKit` alone, with no second import and no platform `#if` of their own.
+@_exported import CoreGraphics
+
 /// The root namespace for AppUIKit. Holds the package version and the platform helpers; the cross-framework
-/// type aliases are vended at the top level (e.g. `NSUIView`) so call sites read like ordinary type names.
+/// type aliases are vended at the top level (e.g. `AppUIView`) so call sites read like ordinary type names.
 public enum AppUIKit {
     /// The package version.
-    public static let version = "0.1.2"
+    public static let version = "0.1.3"
 
     /// The current Core Graphics context inside a view's `draw(_:)`, the one place AppKit and UIKit differ in
     /// how the context is reached. A control's drawing code calls this once and then draws identically on
@@ -37,12 +41,6 @@ public enum AppUIKit {
     }
 }
 
-/// The current Core Graphics context, the free-function spelling (the `NSUI*` analogue of
-/// `UIGraphicsGetCurrentContext`). Equivalent to `AppUIKit.currentCGContext()`.
-public func NSUIGraphicsGetCurrentContext() -> CGContext? {
-    AppUIKit.currentCGContext()
-}
-
 // MARK: - Platform flags
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
@@ -55,247 +53,271 @@ public func NSUIGraphicsGetCurrentContext() -> CGContext? {
     public let isUIKit = true
 #endif
 
-// MARK: - Type aliases (NSUI*)
+// MARK: - Type aliases (AppUI*)
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
 
     // View types.
-    public typealias NSUIView = NSView
-    public typealias NSUIViewController = NSViewController
-    public typealias NSUIWindow = NSWindow
-    public typealias NSUIWindowController = NSWindowController
-    public typealias NSUIApplication = NSApplication
-    public typealias NSUIScreen = NSScreen
-    public typealias NSUIResponder = NSResponder
-
-    /// The shared application instance.
-    public var NSUIApp: NSApplication {
-        NSApp
-    }
+    public typealias AppUIView = NSView
+    public typealias AppUIViewController = NSViewController
+    public typealias AppUIWindow = NSWindow
+    public typealias AppUIWindowController = NSWindowController
+    public typealias AppUIApplication = NSApplication
+    public typealias AppUIScreen = NSScreen
+    public typealias AppUIResponder = NSResponder
 
     // Controls.
-    public typealias NSUIControl = NSControl
-    public typealias NSUIButton = NSButton
-    public typealias NSUILabel = NSTextField
-    public typealias NSUITextField = NSTextField
-    public typealias NSUITextView = NSTextView
-    public typealias NSUISearchField = NSSearchField
-    public typealias NSUISegmentedControl = NSSegmentedControl
-    public typealias NSUISwitch = NSSwitch
-    public typealias NSUISlider = NSSlider
-    public typealias NSUIPopUpButton = NSPopUpButton
-    public typealias NSUIColorWell = NSColorWell
+    public typealias AppUIControl = NSControl
+    public typealias AppUIButton = NSButton
+    public typealias AppUILabel = NSTextField
+    public typealias AppUITextField = NSTextField
+    public typealias AppUITextView = NSTextView
+    public typealias AppUISearchField = NSSearchField
+    public typealias AppUISegmentedControl = NSSegmentedControl
+    public typealias AppUISwitch = NSSwitch
+    public typealias AppUISlider = NSSlider
+    public typealias AppUIPopUpButton = NSPopUpButton
+    public typealias AppUIColorWell = NSColorWell
 
     // Container views.
-    public typealias NSUIScrollView = NSScrollView
-    public typealias NSUIStackView = NSStackView
-    public typealias NSUISplitView = NSSplitView
-    public typealias NSUISplitViewController = NSSplitViewController
-    public typealias NSUISplitViewItem = NSSplitViewItem
-    public typealias NSUITabViewController = NSTabViewController
-    public typealias NSUITabView = NSTabView
-    public typealias NSUITabViewItem = NSTabViewItem
-    public typealias NSUIBox = NSBox
+    public typealias AppUIScrollView = NSScrollView
+    public typealias AppUIStackView = NSStackView
+    public typealias AppUISplitView = NSSplitView
+    public typealias AppUISplitViewController = NSSplitViewController
+    public typealias AppUISplitViewItem = NSSplitViewItem
+    public typealias AppUITabViewController = NSTabViewController
+    public typealias AppUITabView = NSTabView
+    public typealias AppUITabViewItem = NSTabViewItem
+    public typealias AppUIBox = NSBox
 
     // Table / outline views.
-    public typealias NSUITableView = NSTableView
-    public typealias NSUITableColumn = NSTableColumn
-    public typealias NSUITableCellView = NSTableCellView
-    public typealias NSUIOutlineView = NSOutlineView
+    public typealias AppUITableView = NSTableView
+    public typealias AppUITableColumn = NSTableColumn
+    public typealias AppUITableCellView = NSTableCellView
+    public typealias AppUIOutlineView = NSOutlineView
 
     // Images and graphics.
-    public typealias NSUIImage = NSImage
-    public typealias NSUIImageView = NSImageView
-    public typealias NSUIColor = NSColor
-    public typealias NSUIFont = NSFont
-    public typealias NSUIBezierPath = NSBezierPath
-    public typealias NSUIGraphicsContext = NSGraphicsContext
+    public typealias AppUIImage = NSImage
+    public typealias AppUIImageView = NSImageView
+    public typealias AppUIColor = NSColor
+    public typealias AppUIFont = NSFont
+    public typealias AppUIBezierPath = NSBezierPath
+    public typealias AppUIGraphicsContext = NSGraphicsContext
 
     // Alerts and panels.
-    public typealias NSUIAlert = NSAlert
-    public typealias NSUIPanel = NSPanel
-    public typealias NSUIOpenPanel = NSOpenPanel
-    public typealias NSUISavePanel = NSSavePanel
+    public typealias AppUIAlert = NSAlert
+    public typealias AppUIPanel = NSPanel
+    public typealias AppUIOpenPanel = NSOpenPanel
+    public typealias AppUISavePanel = NSSavePanel
 
     // Events and gestures.
-    public typealias NSUIEvent = NSEvent
-    public typealias NSUIGestureRecognizer = NSGestureRecognizer
-    public typealias NSUIPanGestureRecognizer = NSPanGestureRecognizer
-    public typealias NSUIClickGestureRecognizer = NSClickGestureRecognizer
-    public typealias NSUIPressGestureRecognizer = NSPressGestureRecognizer
-    public typealias NSUIMagnificationGestureRecognizer = NSMagnificationGestureRecognizer
+    public typealias AppUIEvent = NSEvent
+    public typealias AppUIGestureRecognizer = NSGestureRecognizer
+    public typealias AppUIPanGestureRecognizer = NSPanGestureRecognizer
+    public typealias AppUIClickGestureRecognizer = NSClickGestureRecognizer
+    public typealias AppUIPressGestureRecognizer = NSPressGestureRecognizer
+    public typealias AppUIMagnificationGestureRecognizer = NSMagnificationGestureRecognizer
 
     // Drag and drop.
-    public typealias NSUIDraggingInfo = NSDraggingInfo
-    public typealias NSUIDraggingSession = NSDraggingSession
-    public typealias NSUIDraggingSource = NSDraggingSource
-    public typealias NSUIDragOperation = NSDragOperation
-    public typealias NSUIDraggingItem = NSDraggingItem
-    public typealias NSUIDraggingContext = NSDraggingContext
+    public typealias AppUIDraggingInfo = NSDraggingInfo
+    public typealias AppUIDraggingSession = NSDraggingSession
+    public typealias AppUIDraggingSource = NSDraggingSource
+    public typealias AppUIDragOperation = NSDragOperation
+    public typealias AppUIDraggingItem = NSDraggingItem
+    public typealias AppUIDraggingContext = NSDraggingContext
 
     // Menu.
-    public typealias NSUIMenu = NSMenu
-    public typealias NSUIMenuItem = NSMenuItem
+    public typealias AppUIMenu = NSMenu
+    public typealias AppUIMenuItem = NSMenuItem
 
     // Toolbar.
-    public typealias NSUIToolbar = NSToolbar
-    public typealias NSUIToolbarItem = NSToolbarItem
-    public typealias NSUIToolbarDelegate = NSToolbarDelegate
-    public typealias NSUIToolbarItemIdentifier = NSToolbarItem.Identifier
+    public typealias AppUIToolbar = NSToolbar
+    public typealias AppUIToolbarItem = NSToolbarItem
+    public typealias AppUIToolbarDelegate = NSToolbarDelegate
+    public typealias AppUIToolbarItemIdentifier = NSToolbarItem.Identifier
 
     // Layout and geometry.
-    public typealias NSUIEdgeInsets = NSEdgeInsets
-    public typealias NSUIRect = NSRect
-    public typealias NSUISize = NSSize
-    public typealias NSUIPoint = NSPoint
-    public typealias NSUILayoutConstraint = NSLayoutConstraint
+    public typealias AppUIEdgeInsets = NSEdgeInsets
+    public typealias AppUIRect = NSRect
+    public typealias AppUISize = NSSize
+    public typealias AppUIPoint = NSPoint
+    public typealias AppUILayoutConstraint = NSLayoutConstraint
 
     // Pasteboard.
-    public typealias NSUIPasteboard = NSPasteboard
-    public typealias NSUIPasteboardItem = NSPasteboardItem
+    public typealias AppUIPasteboard = NSPasteboard
+    public typealias AppUIPasteboardItem = NSPasteboardItem
 
     /// Visual effects.
-    public typealias NSUIVisualEffectView = NSVisualEffectView
+    public typealias AppUIVisualEffectView = NSVisualEffectView
 
     // Animation, appearance, tracking, clip view.
-    public typealias NSUIAnimationContext = NSAnimationContext
-    public typealias NSUIAppearance = NSAppearance
-    public typealias NSUITrackingArea = NSTrackingArea
-    public typealias NSUIClipView = NSClipView
+    public typealias AppUIAnimationContext = NSAnimationContext
+    public typealias AppUIAppearance = NSAppearance
+    public typealias AppUITrackingArea = NSTrackingArea
+    public typealias AppUIClipView = NSClipView
 
     // Protocols (as aliases for consistency).
-    public typealias NSUIOutlineViewDataSource = NSOutlineViewDataSource
-    public typealias NSUIOutlineViewDelegate = NSOutlineViewDelegate
-    public typealias NSUITableViewDataSource = NSTableViewDataSource
-    public typealias NSUITableViewDelegate = NSTableViewDelegate
-    public typealias NSUITextViewDelegate = NSTextViewDelegate
-    public typealias NSUITextFieldDelegate = NSTextFieldDelegate
-    public typealias NSUISearchFieldDelegate = NSSearchFieldDelegate
+    public typealias AppUIOutlineViewDataSource = NSOutlineViewDataSource
+    public typealias AppUIOutlineViewDelegate = NSOutlineViewDelegate
+    public typealias AppUITableViewDataSource = NSTableViewDataSource
+    public typealias AppUITableViewDelegate = NSTableViewDelegate
+    public typealias AppUITextViewDelegate = NSTextViewDelegate
+    public typealias AppUITextFieldDelegate = NSTextFieldDelegate
+    public typealias AppUISearchFieldDelegate = NSSearchFieldDelegate
 
     // Attributed strings.
-    public typealias NSUIMutableAttributedString = NSMutableAttributedString
-    public typealias NSUIAttributedString = NSAttributedString
+    public typealias AppUIMutableAttributedString = NSMutableAttributedString
+    public typealias AppUIAttributedString = NSAttributedString
 
     // Other.
-    public typealias NSUICoder = NSCoder
-    public typealias NSUIUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier
-    public typealias NSUIRegularExpression = NSRegularExpression
-    public typealias NSUIRange = NSRange
-    public typealias NSUIUnderlineStyle = NSUnderlineStyle
+    public typealias AppUICoder = NSCoder
+    public typealias AppUIUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier
+    public typealias AppUIRegularExpression = NSRegularExpression
+    public typealias AppUIRange = NSRange
+    public typealias AppUIUnderlineStyle = NSUnderlineStyle
+
+    // Further shared types (each has a real counterpart on both frameworks).
+    public typealias AppUIStepper = NSStepper
+    public typealias AppUIDatePicker = NSDatePicker
+    public typealias AppUIProgressIndicator = NSProgressIndicator
+    public typealias AppUICollectionView = NSCollectionView
+    public typealias AppUICollectionViewDelegate = NSCollectionViewDelegate
+    public typealias AppUICollectionViewDataSource = NSCollectionViewDataSource
+    public typealias AppUIFontDescriptor = NSFontDescriptor
+    public typealias AppUIGestureRecognizerDelegate = NSGestureRecognizerDelegate
+    public typealias AppUIRotationGestureRecognizer = NSRotationGestureRecognizer
+    public typealias AppUIStoryboard = NSStoryboard
+    public typealias AppUINib = NSNib
+    public typealias AppUILayoutGuide = NSLayoutGuide
+    public typealias AppUIAccessibilityElement = NSAccessibilityElement
 
 #elseif canImport(UIKit)
 
     // View types.
-    public typealias NSUIView = UIView
-    public typealias NSUIViewController = UIViewController
-    public typealias NSUIWindow = UIWindow
-    public typealias NSUIWindowScene = UIWindowScene
-    public typealias NSUIApplication = UIApplication
-    public typealias NSUIScreen = UIScreen
-    public typealias NSUIResponder = UIResponder
+    public typealias AppUIView = UIView
+    public typealias AppUIViewController = UIViewController
+    public typealias AppUIWindow = UIWindow
+    public typealias AppUIWindowScene = UIWindowScene
+    public typealias AppUIApplication = UIApplication
+    public typealias AppUIScreen = UIScreen
+    public typealias AppUIResponder = UIResponder
 
     // Controls.
-    public typealias NSUIControl = UIControl
-    public typealias NSUIButton = UIButton
-    public typealias NSUILabel = UILabel
-    public typealias NSUITextField = UITextField
-    public typealias NSUITextView = UITextView
-    public typealias NSUISearchBar = UISearchBar
-    public typealias NSUISearchController = UISearchController
-    public typealias NSUISegmentedControl = UISegmentedControl
-    public typealias NSUISwitch = UISwitch
-    public typealias NSUISlider = UISlider
-    public typealias NSUIColorWell = UIColorWell
+    public typealias AppUIControl = UIControl
+    public typealias AppUIButton = UIButton
+    public typealias AppUILabel = UILabel
+    public typealias AppUITextField = UITextField
+    public typealias AppUITextView = UITextView
+    public typealias AppUISearchBar = UISearchBar
+    public typealias AppUISearchController = UISearchController
+    public typealias AppUISegmentedControl = UISegmentedControl
+    public typealias AppUISwitch = UISwitch
+    public typealias AppUISlider = UISlider
+    public typealias AppUIColorWell = UIColorWell
 
     // Container views.
-    public typealias NSUIScrollView = UIScrollView
-    public typealias NSUIStackView = UIStackView
-    public typealias NSUISplitView = UISplitViewController
-    public typealias NSUISplitViewController = UISplitViewController
-    public typealias NSUITabBarController = UITabBarController
+    public typealias AppUIScrollView = UIScrollView
+    public typealias AppUIStackView = UIStackView
+    public typealias AppUISplitView = UISplitViewController
+    public typealias AppUISplitViewController = UISplitViewController
+    public typealias AppUITabBarController = UITabBarController
 
     // Table / collection views.
-    public typealias NSUITableView = UITableView
-    public typealias NSUITableViewCell = UITableViewCell
-    public typealias NSUITableViewController = UITableViewController
-    public typealias NSUICollectionView = UICollectionView
-    public typealias NSUICollectionViewCell = UICollectionViewCell
+    public typealias AppUITableView = UITableView
+    public typealias AppUITableViewCell = UITableViewCell
+    public typealias AppUITableViewController = UITableViewController
+    public typealias AppUICollectionView = UICollectionView
+    public typealias AppUICollectionViewCell = UICollectionViewCell
 
     // Images and graphics.
-    public typealias NSUIImage = UIImage
-    public typealias NSUIImageView = UIImageView
-    public typealias NSUIColor = UIColor
-    public typealias NSUIFont = UIFont
-    public typealias NSUIBezierPath = UIBezierPath
-    public typealias NSUIGraphicsContext = UIGraphicsImageRenderer
+    public typealias AppUIImage = UIImage
+    public typealias AppUIImageView = UIImageView
+    public typealias AppUIColor = UIColor
+    public typealias AppUIFont = UIFont
+    public typealias AppUIBezierPath = UIBezierPath
+    public typealias AppUIGraphicsContext = UIGraphicsImageRenderer
 
     // Alerts.
-    public typealias NSUIAlertController = UIAlertController
-    public typealias NSUIAlertAction = UIAlertAction
+    public typealias AppUIAlertController = UIAlertController
+    public typealias AppUIAlertAction = UIAlertAction
 
     // Events and gestures.
-    public typealias NSUIEvent = UIEvent
-    public typealias NSUIGestureRecognizer = UIGestureRecognizer
-    public typealias NSUIPanGestureRecognizer = UIPanGestureRecognizer
-    public typealias NSUITapGestureRecognizer = UITapGestureRecognizer
-    public typealias NSUILongPressGestureRecognizer = UILongPressGestureRecognizer
-    public typealias NSUIPinchGestureRecognizer = UIPinchGestureRecognizer
+    public typealias AppUIEvent = UIEvent
+    public typealias AppUIGestureRecognizer = UIGestureRecognizer
+    public typealias AppUIPanGestureRecognizer = UIPanGestureRecognizer
+    public typealias AppUITapGestureRecognizer = UITapGestureRecognizer
+    public typealias AppUILongPressGestureRecognizer = UILongPressGestureRecognizer
+    public typealias AppUIPinchGestureRecognizer = UIPinchGestureRecognizer
 
     // Drag and drop.
-    public typealias NSUIDragInteraction = UIDragInteraction
-    public typealias NSUIDropInteraction = UIDropInteraction
-    public typealias NSUIDropInteractionDelegate = UIDropInteractionDelegate
-    public typealias NSUIDropSession = UIDropSession
-    public typealias NSUIDropProposal = UIDropProposal
+    public typealias AppUIDragInteraction = UIDragInteraction
+    public typealias AppUIDropInteraction = UIDropInteraction
+    public typealias AppUIDropInteractionDelegate = UIDropInteractionDelegate
+    public typealias AppUIDropSession = UIDropSession
+    public typealias AppUIDropProposal = UIDropProposal
 
     // Menu.
-    public typealias NSUIMenu = UIMenu
-    public typealias NSUIAction = UIAction
-    public typealias NSUIContextMenuInteraction = UIContextMenuInteraction
-    public typealias NSUIContextMenuConfiguration = UIContextMenuConfiguration
+    public typealias AppUIMenu = UIMenu
+    public typealias AppUIAction = UIAction
+    public typealias AppUIContextMenuInteraction = UIContextMenuInteraction
+    public typealias AppUIContextMenuConfiguration = UIContextMenuConfiguration
 
     // Navigation and toolbar.
-    public typealias NSUINavigationController = UINavigationController
-    public typealias NSUIBarButtonItem = UIBarButtonItem
+    public typealias AppUINavigationController = UINavigationController
+    public typealias AppUIBarButtonItem = UIBarButtonItem
 
     // Layout and geometry.
-    public typealias NSUIEdgeInsets = UIEdgeInsets
-    public typealias NSUILayoutConstraint = NSLayoutConstraint
+    public typealias AppUIEdgeInsets = UIEdgeInsets
+    public typealias AppUILayoutConstraint = NSLayoutConstraint
 
     /// Pasteboard.
-    public typealias NSUIPasteboard = UIPasteboard
+    public typealias AppUIPasteboard = UIPasteboard
 
     // Visual effects.
-    public typealias NSUIVisualEffectView = UIVisualEffectView
-    public typealias NSUIBlurEffect = UIBlurEffect
+    public typealias AppUIVisualEffectView = UIVisualEffectView
+    public typealias AppUIBlurEffect = UIBlurEffect
 
     // Appearance.
-    public typealias NSUIUserInterfaceStyle = UIUserInterfaceStyle
-    public typealias NSUITraitCollection = UITraitCollection
+    public typealias AppUIUserInterfaceStyle = UIUserInterfaceStyle
+    public typealias AppUITraitCollection = UITraitCollection
 
     /// Tab bar.
-    public typealias NSUITabBarItem = UITabBarItem
+    public typealias AppUITabBarItem = UITabBarItem
 
     // Protocols.
-    public typealias NSUITableViewDataSource = UITableViewDataSource
-    public typealias NSUITableViewDelegate = UITableViewDelegate
-    public typealias NSUITextViewDelegate = UITextViewDelegate
-    public typealias NSUITextFieldDelegate = UITextFieldDelegate
-    public typealias NSUISearchBarDelegate = UISearchBarDelegate
-    public typealias NSUISearchResultsUpdating = UISearchResultsUpdating
-    public typealias NSUIDocumentPickerDelegate = UIDocumentPickerDelegate
+    public typealias AppUITableViewDataSource = UITableViewDataSource
+    public typealias AppUITableViewDelegate = UITableViewDelegate
+    public typealias AppUITextViewDelegate = UITextViewDelegate
+    public typealias AppUITextFieldDelegate = UITextFieldDelegate
+    public typealias AppUISearchBarDelegate = UISearchBarDelegate
+    public typealias AppUISearchResultsUpdating = UISearchResultsUpdating
+    public typealias AppUIDocumentPickerDelegate = UIDocumentPickerDelegate
 
     /// Document picker.
-    public typealias NSUIDocumentPickerViewController = UIDocumentPickerViewController
+    public typealias AppUIDocumentPickerViewController = UIDocumentPickerViewController
 
     // Attributed strings.
-    public typealias NSUIMutableAttributedString = NSMutableAttributedString
-    public typealias NSUIAttributedString = NSAttributedString
+    public typealias AppUIMutableAttributedString = NSMutableAttributedString
+    public typealias AppUIAttributedString = NSAttributedString
 
     // Other.
-    public typealias NSUICoder = NSCoder
-    public typealias NSUIRegularExpression = NSRegularExpression
-    public typealias NSUIRange = NSRange
-    public typealias NSUIUnderlineStyle = NSUnderlineStyle
+    public typealias AppUICoder = NSCoder
+    public typealias AppUIRegularExpression = NSRegularExpression
+    public typealias AppUIRange = NSRange
+    public typealias AppUIUnderlineStyle = NSUnderlineStyle
+
+    // Further shared types (each has a real counterpart on both frameworks).
+    public typealias AppUIStepper = UIStepper
+    public typealias AppUIDatePicker = UIDatePicker
+    public typealias AppUIProgressIndicator = UIProgressView
+    public typealias AppUICollectionViewDelegate = UICollectionViewDelegate
+    public typealias AppUICollectionViewDataSource = UICollectionViewDataSource
+    public typealias AppUIFontDescriptor = UIFontDescriptor
+    public typealias AppUIGestureRecognizerDelegate = UIGestureRecognizerDelegate
+    public typealias AppUIRotationGestureRecognizer = UIRotationGestureRecognizer
+    public typealias AppUIStoryboard = UIStoryboard
+    public typealias AppUINib = UINib
+    public typealias AppUILayoutGuide = UILayoutGuide
+    public typealias AppUIAccessibilityElement = UIAccessibilityElement
 
 #endif

@@ -18,11 +18,11 @@ public extension AppUIKit {
         public static func label(
             _ text: String,
             size: CGFloat = 13,
-            weight: NSUIFont.Weight = .regular,
-            color: NSUIColor = .nsuiLabel,
+            weight: AppUIFont.Weight = .regular,
+            color: AppUIColor = .appuiLabel,
             maxLines: Int = 1,
             truncate: Bool = true
-        ) -> NSUILabel {
+        ) -> AppUILabel {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 let label = NSTextField(labelWithString: text)
                 label.font = .systemFont(ofSize: size, weight: weight)
@@ -47,9 +47,9 @@ public extension AppUIKit {
         public static func monospacedLabel(
             _ text: String,
             size: CGFloat = 12,
-            weight: NSUIFont.Weight = .regular,
-            color: NSUIColor = .nsuiLabel
-        ) -> NSUILabel {
+            weight: AppUIFont.Weight = .regular,
+            color: AppUIColor = .appuiLabel
+        ) -> AppUILabel {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 let label = NSTextField(labelWithString: text)
                 label.font = .monospacedSystemFont(ofSize: size, weight: weight)
@@ -72,7 +72,7 @@ public extension AppUIKit {
             title: String,
             action: Selector,
             target: AnyObject?
-        ) -> NSUIButton {
+        ) -> AppUIButton {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 let button = NSButton(title: title, target: target, action: action)
                 button.bezelStyle = .rounded
@@ -94,7 +94,7 @@ public extension AppUIKit {
             action: Selector,
             target: AnyObject?,
             size: CGFloat = 16
-        ) -> NSUIButton {
+        ) -> AppUIButton {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 let button = NSButton()
                 button.image = NSImage(systemSymbolName: systemName, accessibilityDescription: nil)
@@ -119,10 +119,10 @@ public extension AppUIKit {
 
         public static func pillButton(
             title: String,
-            color: NSUIColor,
+            color: AppUIColor,
             action: Selector,
             target: AnyObject?
-        ) -> NSUIButton {
+        ) -> AppUIButton {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 let button = NSButton(title: title, target: target, action: action)
                 button.bezelStyle = .rounded
@@ -148,7 +148,7 @@ public extension AppUIKit {
 
         // MARK: - Separators
 
-        public static func separator(vertical: Bool = false) -> NSUIView {
+        public static func separator(vertical: Bool = false) -> AppUIView {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 let box = NSBox()
                 box.boxType = .separator
@@ -171,17 +171,17 @@ public extension AppUIKit {
 
         public static func card(
             cornerRadius: CGFloat = 12,
-            backgroundColor: NSUIColor = .nsuiSecondaryBackground
-        ) -> NSUIView {
-            let view = NSUIView()
+            backgroundColor: AppUIColor = .appuiSecondaryBackground
+        ) -> AppUIView {
+            let view = AppUIView()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.nsuiBackgroundColor = backgroundColor
-            view.nsuiCornerRadius = cornerRadius
+            view.appuiBackgroundColor = backgroundColor
+            view.appuiCornerRadius = cornerRadius
             return view
         }
 
-        public static func scrollView() -> NSUIScrollView {
-            let scrollView = NSUIScrollView()
+        public static func scrollView() -> AppUIScrollView {
+            let scrollView = AppUIScrollView()
             scrollView.translatesAutoresizingMaskIntoConstraints = false
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 scrollView.hasVerticalScroller = true
@@ -198,8 +198,8 @@ public extension AppUIKit {
             axis: StackAxis,
             spacing: CGFloat = 8,
             alignment: StackAlignment = .leading
-        ) -> NSUIStackView {
-            let stack = NSUIStackView()
+        ) -> AppUIStackView {
+            let stack = AppUIStackView()
             stack.translatesAutoresizingMaskIntoConstraints = false
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 stack.orientation = axis == .horizontal ? .horizontal : .vertical
@@ -241,9 +241,9 @@ public extension AppUIKit {
         public static func imageView(
             systemName: String,
             size: CGFloat = 24,
-            color: NSUIColor = .nsuiLabel
-        ) -> NSUIImageView {
-            let imageView = NSUIImageView()
+            color: AppUIColor = .appuiLabel
+        ) -> AppUIImageView {
+            let imageView = AppUIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                 imageView.image = NSImage(systemSymbolName: systemName, accessibilityDescription: nil)

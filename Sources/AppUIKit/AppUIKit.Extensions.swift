@@ -7,7 +7,7 @@ import Foundation
     // MARK: - NSView Extensions
 
     public extension NSView {
-        var nsuiBackgroundColor: NSColor? {
+        var appuiBackgroundColor: NSColor? {
             get { layer?.backgroundColor.flatMap { NSColor(cgColor: $0) } }
             set {
                 wantsLayer = true
@@ -15,7 +15,7 @@ import Foundation
             }
         }
 
-        var nsuiCornerRadius: CGFloat {
+        var appuiCornerRadius: CGFloat {
             get { layer?.cornerRadius ?? 0 }
             set {
                 wantsLayer = true
@@ -23,7 +23,7 @@ import Foundation
             }
         }
 
-        var nsuiBorderWidth: CGFloat {
+        var appuiBorderWidth: CGFloat {
             get { layer?.borderWidth ?? 0 }
             set {
                 wantsLayer = true
@@ -31,7 +31,7 @@ import Foundation
             }
         }
 
-        var nsuiBorderColor: NSColor? {
+        var appuiBorderColor: NSColor? {
             get { layer?.borderColor.flatMap { NSColor(cgColor: $0) } }
             set {
                 wantsLayer = true
@@ -39,11 +39,11 @@ import Foundation
             }
         }
 
-        func nsuiAddSubview(_ view: NSView) {
+        func appuiAddSubview(_ view: NSView) {
             addSubview(view)
         }
 
-        func nsuiRemoveFromSuperview() {
+        func appuiRemoveFromSuperview() {
             removeFromSuperview()
         }
     }
@@ -51,35 +51,35 @@ import Foundation
     // MARK: - NSColor Extensions
 
     public extension NSColor {
-        static var nsuiLabel: NSColor {
+        static var appuiLabel: NSColor {
             .labelColor
         }
 
-        static var nsuiSecondaryLabel: NSColor {
+        static var appuiSecondaryLabel: NSColor {
             .secondaryLabelColor
         }
 
-        static var nsuiTertiaryLabel: NSColor {
+        static var appuiTertiaryLabel: NSColor {
             .tertiaryLabelColor
         }
 
-        static var nsuiBackground: NSColor {
+        static var appuiBackground: NSColor {
             .windowBackgroundColor
         }
 
-        static var nsuiSecondaryBackground: NSColor {
+        static var appuiSecondaryBackground: NSColor {
             .controlBackgroundColor
         }
 
-        static var nsuiSeparator: NSColor {
+        static var appuiSeparator: NSColor {
             .separatorColor
         }
 
-        static var nsuiAccent: NSColor {
+        static var appuiAccent: NSColor {
             .controlAccentColor
         }
 
-        convenience init(nsuiRed red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        convenience init(appuiRed red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
             self.init(red: red, green: green, blue: blue, alpha: alpha)
         }
     }
@@ -87,7 +87,7 @@ import Foundation
     // MARK: - NSTextField Label Factory
 
     public extension NSTextField {
-        static func nsuiLabel(text: String) -> NSTextField {
+        static func appuiLabel(text: String) -> NSTextField {
             let label = NSTextField(labelWithString: text)
             label.isEditable = false
             label.isSelectable = false
@@ -100,11 +100,11 @@ import Foundation
     // MARK: - NSFont Extensions
 
     public extension NSFont {
-        static func nsuiSystem(size: CGFloat, weight: NSFont.Weight = .regular) -> NSFont {
+        static func appuiSystem(size: CGFloat, weight: NSFont.Weight = .regular) -> NSFont {
             .systemFont(ofSize: size, weight: weight)
         }
 
-        static func nsuiMonospaced(size: CGFloat, weight: NSFont.Weight = .regular) -> NSFont {
+        static func appuiMonospaced(size: CGFloat, weight: NSFont.Weight = .regular) -> NSFont {
             .monospacedSystemFont(ofSize: size, weight: weight)
         }
     }
@@ -112,7 +112,7 @@ import Foundation
     // MARK: - NSImage Extensions
 
     public extension NSImage {
-        static func nsuiSystemImage(named name: String) -> NSImage? {
+        static func appuiSystemImage(named name: String) -> NSImage? {
             NSImage(systemSymbolName: name, accessibilityDescription: nil)
         }
     }
@@ -122,31 +122,31 @@ import Foundation
     // MARK: - UIView Extensions
 
     public extension UIView {
-        var nsuiBackgroundColor: UIColor? {
+        var appuiBackgroundColor: UIColor? {
             get { backgroundColor }
             set { backgroundColor = newValue }
         }
 
-        var nsuiCornerRadius: CGFloat {
+        var appuiCornerRadius: CGFloat {
             get { layer.cornerRadius }
             set { layer.cornerRadius = newValue }
         }
 
-        var nsuiBorderWidth: CGFloat {
+        var appuiBorderWidth: CGFloat {
             get { layer.borderWidth }
             set { layer.borderWidth = newValue }
         }
 
-        var nsuiBorderColor: UIColor? {
+        var appuiBorderColor: UIColor? {
             get { layer.borderColor.flatMap { UIColor(cgColor: $0) } }
             set { layer.borderColor = newValue?.cgColor }
         }
 
-        func nsuiAddSubview(_ view: UIView) {
+        func appuiAddSubview(_ view: UIView) {
             addSubview(view)
         }
 
-        func nsuiRemoveFromSuperview() {
+        func appuiRemoveFromSuperview() {
             removeFromSuperview()
         }
     }
@@ -154,35 +154,35 @@ import Foundation
     // MARK: - UIColor Extensions
 
     public extension UIColor {
-        static var nsuiLabel: UIColor {
+        static var appuiLabel: UIColor {
             .label
         }
 
-        static var nsuiSecondaryLabel: UIColor {
+        static var appuiSecondaryLabel: UIColor {
             .secondaryLabel
         }
 
-        static var nsuiTertiaryLabel: UIColor {
+        static var appuiTertiaryLabel: UIColor {
             .tertiaryLabel
         }
 
-        static var nsuiBackground: UIColor {
+        static var appuiBackground: UIColor {
             .systemBackground
         }
 
-        static var nsuiSecondaryBackground: UIColor {
+        static var appuiSecondaryBackground: UIColor {
             .secondarySystemBackground
         }
 
-        static var nsuiSeparator: UIColor {
+        static var appuiSeparator: UIColor {
             .separator
         }
 
-        static var nsuiAccent: UIColor {
+        static var appuiAccent: UIColor {
             .tintColor
         }
 
-        convenience init(nsuiRed red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        convenience init(appuiRed red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
             self.init(red: red, green: green, blue: blue, alpha: alpha)
         }
     }
@@ -190,7 +190,7 @@ import Foundation
     // MARK: - UILabel Factory
 
     public extension UILabel {
-        static func nsuiLabel(text: String) -> UILabel {
+        static func appuiLabel(text: String) -> UILabel {
             let label = UILabel()
             label.text = text
             return label
@@ -200,11 +200,11 @@ import Foundation
     // MARK: - UIFont Extensions
 
     public extension UIFont {
-        static func nsuiSystem(size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
+        static func appuiSystem(size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
             .systemFont(ofSize: size, weight: weight)
         }
 
-        static func nsuiMonospaced(size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
+        static func appuiMonospaced(size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
             .monospacedSystemFont(ofSize: size, weight: weight)
         }
     }
@@ -212,7 +212,7 @@ import Foundation
     // MARK: - UIImage Extensions
 
     public extension UIImage {
-        static func nsuiSystemImage(named name: String) -> UIImage? {
+        static func appuiSystemImage(named name: String) -> UIImage? {
             UIImage(systemName: name)
         }
     }
