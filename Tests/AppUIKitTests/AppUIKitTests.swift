@@ -24,6 +24,15 @@ struct AppUIKitTests {
         #expect(AppUIKit.Fonts.monospacedDigit(size: 17).pointSize == 17)
     }
 
+    @MainActor
+    @Test func `sharing from a detached view falls back to pasteboard`() {
+        let text = "share-fallback-\(AppUIKit.version)"
+
+        AppUIKit.Sharing.share(text: text, from: AppUIView())
+
+        #expect(AppUIKit.Pasteboard.paste() == text)
+    }
+
     #if canImport(SwiftUI)
         @Test func `the SwiftUI view representable alias can be conformed to`() {
             _ = RepresentableProbe()
