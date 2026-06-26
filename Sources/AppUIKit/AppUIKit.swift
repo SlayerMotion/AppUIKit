@@ -17,6 +17,10 @@ import Foundation
     @_exported import UIKit
 #endif
 
+#if canImport(SwiftUI)
+    @_exported import SwiftUI
+#endif
+
 // Re-export Core Graphics too, so a consumer drawing in a control reaches `CGContext`, `CGRect`, and the
 // rest through `import AppUIKit` alone, with no second import and no platform `#if` of their own.
 @_exported import CoreGraphics
@@ -190,6 +194,9 @@ public enum AppUIKit {
     public typealias AppUINib = NSNib
     public typealias AppUILayoutGuide = NSLayoutGuide
     public typealias AppUIAccessibilityElement = NSAccessibilityElement
+    #if canImport(SwiftUI)
+        public typealias AppUIViewRepresentable = NSViewRepresentable
+    #endif
 
 #elseif canImport(UIKit)
 
@@ -319,5 +326,8 @@ public enum AppUIKit {
     public typealias AppUINib = UINib
     public typealias AppUILayoutGuide = UILayoutGuide
     public typealias AppUIAccessibilityElement = UIAccessibilityElement
+    #if canImport(SwiftUI)
+        public typealias AppUIViewRepresentable = UIViewRepresentable
+    #endif
 
 #endif

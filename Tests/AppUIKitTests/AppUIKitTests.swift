@@ -23,4 +23,28 @@ struct AppUIKitTests {
     @Test func `a monospaced-digit font honours the requested size`() {
         #expect(AppUIKit.Fonts.monospacedDigit(size: 17).pointSize == 17)
     }
+
+    #if canImport(SwiftUI)
+        @Test func `the SwiftUI view representable alias can be conformed to`() {
+            _ = RepresentableProbe()
+        }
+    #endif
 }
+
+#if canImport(SwiftUI)
+    private struct RepresentableProbe: AppUIViewRepresentable {
+        #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+            func makeNSView(context _: Context) -> AppUIView {
+                AppUIView()
+            }
+
+            func updateNSView(_: AppUIView, context _: Context) {}
+        #elseif canImport(UIKit)
+            func makeUIView(context _: Context) -> AppUIView {
+                AppUIView()
+            }
+
+            func updateUIView(_: AppUIView, context _: Context) {}
+        #endif
+    }
+#endif
