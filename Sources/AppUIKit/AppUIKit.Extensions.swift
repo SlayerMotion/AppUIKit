@@ -23,6 +23,14 @@ import Foundation
             }
         }
 
+        var appuiClipsToBounds: Bool {
+            get { layer?.masksToBounds ?? false }
+            set {
+                wantsLayer = true
+                layer?.masksToBounds = newValue
+            }
+        }
+
         var appuiBorderWidth: CGFloat {
             get { layer?.borderWidth ?? 0 }
             set {
@@ -37,6 +45,25 @@ import Foundation
                 wantsLayer = true
                 layer?.borderColor = newValue?.cgColor
             }
+        }
+
+        func appuiResolvedColor(_ color: NSColor) -> NSColor {
+            var resolved = color
+            effectiveAppearance.performAsCurrentDrawingAppearance {
+                resolved =
+                    color.usingColorSpace(.deviceRGB) ?? color
+            }
+            return resolved
+        }
+
+        func appuiApplyLayerBackgroundColor(_ color: NSColor?) {
+            wantsLayer = true
+            layer?.backgroundColor = color.map(appuiResolvedColor)?.cgColor
+        }
+
+        func appuiApplyLayerBorderColor(_ color: NSColor?) {
+            wantsLayer = true
+            layer?.borderColor = color.map(appuiResolvedColor)?.cgColor
         }
 
         func appuiAddSubview(_ view: NSView) {
@@ -132,6 +159,11 @@ import Foundation
             set { layer.cornerRadius = newValue }
         }
 
+        var appuiClipsToBounds: Bool {
+            get { clipsToBounds }
+            set { clipsToBounds = newValue }
+        }
+
         var appuiBorderWidth: CGFloat {
             get { layer.borderWidth }
             set { layer.borderWidth = newValue }
@@ -140,6 +172,18 @@ import Foundation
         var appuiBorderColor: UIColor? {
             get { layer.borderColor.flatMap { UIColor(cgColor: $0) } }
             set { layer.borderColor = newValue?.cgColor }
+        }
+
+        func appuiResolvedColor(_ color: UIColor) -> UIColor {
+            color.resolvedColor(with: traitCollection)
+        }
+
+        func appuiApplyLayerBackgroundColor(_ color: UIColor?) {
+            appuiBackgroundColor = color.map(appuiResolvedColor)
+        }
+
+        func appuiApplyLayerBorderColor(_ color: UIColor?) {
+            appuiBorderColor = color.map(appuiResolvedColor)
         }
 
         func appuiAddSubview(_ view: UIView) {

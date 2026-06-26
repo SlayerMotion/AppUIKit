@@ -29,7 +29,7 @@ import Foundation
 /// type aliases are vended at the top level (e.g. `AppUIView`) so call sites read like ordinary type names.
 public enum AppUIKit {
     /// The package version.
-    public static let version = "0.1.5"
+    public static let version = "0.1.6"
 
     /// The current Core Graphics context inside a view's `draw(_:)`, the one place AppKit and UIKit differ in
     /// how the context is reached. A control's drawing code calls this once and then draws identically on

@@ -30,6 +30,16 @@ struct AppUIKitTests {
     }
 
     @MainActor
+    @Test func `semantic layer colors resolve against a view appearance`() {
+        let view = AppUIView()
+        view.appuiApplyLayerBackgroundColor(AppUIKit.Colors.background)
+        view.appuiApplyLayerBorderColor(AppUIKit.Colors.separator)
+
+        #expect(view.appuiBackgroundColor != nil)
+        #expect(view.appuiBorderColor != nil)
+    }
+
+    @MainActor
     @Test func `sharing from a detached view falls back to pasteboard`() {
         let text = "share-fallback-\(AppUIKit.version)"
 
