@@ -42,6 +42,17 @@
         /// Called after the view lays out; override to position subviews. The
         /// cross-framework twin of `UIView.layoutSubviews`.
         open func didLayout() {}
+
+        /// The view's backing layer, guaranteed to exist (an `NSView`'s layer is
+        /// optional until it is layer-backed). The cross-framework twin of
+        /// `UIView.layer`, so a subclass adds sublayers without an `#if`.
+        open var backingLayer: CALayer {
+            if let existing = layer { return existing }
+            let created = CALayer()
+            layer = created
+            wantsLayer = true
+            return created
+        }
     }
 
 #elseif canImport(UIKit)
@@ -55,5 +66,11 @@
 
         /// Called after the view lays out; override to position subviews.
         open func didLayout() {}
+
+        /// The view's backing layer. The cross-framework twin of the AppKit
+        /// accessor, so a subclass adds sublayers without an `#if`.
+        open var backingLayer: CALayer {
+            layer
+        }
     }
 #endif
