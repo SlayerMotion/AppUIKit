@@ -30,6 +30,15 @@
             didLayout()
         }
 
+        /// A plain (non-Auto-Layout) NSView does not get `layout()` called merely
+        /// because its frame changed, so drive the hook from the size change too.
+        /// The window resizing the view, or a superview re-framing it, both go
+        /// through `setFrameSize`, so this makes `didLayout()` reliable.
+        override open func setFrameSize(_ newSize: NSSize) {
+            super.setFrameSize(newSize)
+            didLayout()
+        }
+
         /// Called after the view lays out; override to position subviews. The
         /// cross-framework twin of `UIView.layoutSubviews`.
         open func didLayout() {}
