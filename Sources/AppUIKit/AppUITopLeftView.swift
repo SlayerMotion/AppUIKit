@@ -39,9 +39,22 @@
             didLayout()
         }
 
+        override open func viewDidChangeEffectiveAppearance() {
+            super.viewDidChangeEffectiveAppearance()
+            didChangeAppearance()
+        }
+
         /// Called after the view lays out; override to position subviews. The
         /// cross-framework twin of `UIView.layoutSubviews`.
         open func didLayout() {}
+
+        /// Called when the platform appearance changes.
+        open func didChangeAppearance() {}
+
+        /// True when the view resolves colors in a dark appearance.
+        open var appuiIsDarkAppearance: Bool {
+            effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+        }
 
         /// The view's backing layer, guaranteed to exist (an `NSView`'s layer is
         /// optional until it is layer-backed). The cross-framework twin of
@@ -64,8 +77,21 @@
             didLayout()
         }
 
+        override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+            didChangeAppearance()
+        }
+
         /// Called after the view lays out; override to position subviews.
         open func didLayout() {}
+
+        /// Called when the platform appearance changes.
+        open func didChangeAppearance() {}
+
+        /// True when the view resolves colors in a dark appearance.
+        open var appuiIsDarkAppearance: Bool {
+            traitCollection.userInterfaceStyle == .dark
+        }
 
         /// The view's backing layer. The cross-framework twin of the AppKit
         /// accessor, so a subclass adds sublayers without an `#if`.

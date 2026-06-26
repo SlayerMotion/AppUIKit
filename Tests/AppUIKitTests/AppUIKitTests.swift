@@ -25,6 +25,11 @@ struct AppUIKitTests {
     }
 
     @MainActor
+    @Test func `top-left views expose the current appearance`() {
+        _ = AppUITopLeftView().appuiIsDarkAppearance
+    }
+
+    @MainActor
     @Test func `sharing from a detached view falls back to pasteboard`() {
         let text = "share-fallback-\(AppUIKit.version)"
 
